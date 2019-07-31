@@ -2,7 +2,7 @@
 
 This repository includes an Android and Web application which connects to a simple RESTFUL API.
 
-The application itself is a simple calendar with features to add, remove and edit appointments.
+The application itself is a simple calendar with features to add, remove and edit appointments; this includes login authentication.
 
 The Android app is written in Java and was built in Android Studio.
 
