@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calendar Application | Add</title>
+    <link rel="stylesheet" href="./css/edit_style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1>Calendar Application | <span class="highlight">100404970</span></h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="add.html">Add</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="index.html">LOGOUT</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="editAppointment">
+      <div class="container">
+        <h1>Edit Appointment</h1>
+            <input type="text" id="title" placeholder="Enter Title"><br>
+            <input type="text" id="location" placeholder="Enter Location"><br>
+            <input type="text" id="details" placeholder="Enter Details"><br>
+            <select id="dayDropDown">
+          <option value="" hidden>Choose a Day</option>
+          </select><br>
+            <select id="monthDropDown">
+          <option value="" hidden>Choose a Month</option>
+          </select><br>
+            <select id="yearDropDown">
+          <option value="" hidden>Choose a Year</option>
+          </select><br>
+            <select id="startDropDown">
+          <option value="" hidden>Choose a Start Time</option>
+          </select><br>
+            <select id="endDropDown">
+          <option value="" hidden>Choose a End Time</option>
+          </select><br>
+            <select id="occurDropDown">
+          <option value="" hidden>Choose a Occurrence</option>
+          </select><br>
+          <button id="edit" onclick="editItem()">Edit Appointment</button>
+      </div>
+    </section>
+  </body>
+</html>
+
+<script src="jQuery/jquery-3.3.1.js"></script>
+<script src="jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+    
+    var user = document.cookie;
+    
+    if(user == ""){
+        window.location.href="index.html"
+    }
+    
+    var info = window.location.search.replace("?", "");
+    var parts = info.split(" ==== ");
+    
+    var oDay = parts[0];
+    var oMonth = parts[1];
+    var oYear = parts[2];
+    var oTitle = parts[3];
+    var oLocation = parts[4];
+    var oStart = parts[5];
+    var oEnd = parts[6];
+    var oOccur = parts[7];
+    var oDetails = parts[8];
+    
+    var title = $('#title');
+    title.val(oTitle);
+    var loc = $('#location');
+    loc.val(oLocation);
+    var details = $('#details');
+    details.val(oDetails);
+    var $dayDropDown = $('#dayDropDown');
+    var $monthDropDown = $('#monthDropDown');
+    var $yearDropDown = $('#yearDropDown');
+    var $startDropDown = $('#startDropDown');
+    var $endDropDown = $('#endDropDown');
+    var $occurDropDown = $('#occurDropDown');
+    
+    for(var i = 1; i <= 31; i++){
+        $dayDropDown.append('<option>'+ i + '</option>');
+    }
+    
+    var monthItem = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for(var i = 0; i < 12; i++){
+        $monthDropDown.append('<option>'+ monthItem[i] + '</option>');
+    }
+    
+    var yearItem = new Date();
+    for(var i = 0; i < 10; i++){
+        $yearDropDown.append('<option>'+ (yearItem.getFullYear()+i) + '</option>');
+    }
+
+    var time = "";
+    var hours = "";
+    var mins = "";
+
+    for(var i = 0; i <= 23; i++){
+        if(i < 10){
+            hours = "0" + i + ":";
+        }
+        else{
+            hours = i + ":";
+        }
+        for(var j = 0; j <= 45; j = j + 15){
+            if(j == 0){
+                mins = "0" + j;
+            }
+            else{
+                mins = j;
+            }
+            time = hours + mins;
+            $startDropDown.append('<option>'+ time + '</option>');
+            $endDropDown.append('<option>'+ time + '</option>');
+        }
+    }
+    
+    var occurItems = ["Once", "Daily", "Weekly", "Fortnightly", "Monthly", "Yearly"];
+    for(var i = 0; i < 6; i++){
+        $occurDropDown.append('<option>'+ occurItems[i] + '</option>');
+    }
+    
+    $dayDropDown.val(oDay);
+    $monthDropDown.val(oMonth);
+    $yearDropDown.val(oYear);
+    $startDropDown.val(oStart);
+    $endDropDown.val(oEnd);
+    $occurDropDown.val(oOccur);
+    
+    
+    
+    
+    
+    function editItem(){
+        var title = $('#title').val();
+        var loc = $('#location').val();
+        var det = $('#details').val();
+        var dayDrp = document.getElementById('dayDropDown');
+        var day = dayDrp.options[dayDrp.selectedIndex].value;
+        var monthDrp = document.getElementById('monthDropDown');
+        var month = monthDrp.options[monthDrp.selectedIndex].value;
+        var yearDrp = document.getElementById('yearDropDown');
+        var year = yearDrp.options[yearDrp.selectedIndex].value;
+        var startDrp = document.getElementById('startDropDown');
+        var start = startDrp.options[startDrp.selectedIndex].value;
+        var endDrp = document.getElementById('endDropDown');
+        var end = endDrp.options[endDrp.selectedIndex].value;
+        var occurDrp = document.getElementById('occurDropDown');
+        var occur = occurDrp.options[occurDrp.selectedIndex].value;
+
+        if(title.length == 0 || loc.length == 0 || det.length == 0){
+            alert("Field not filled in");
+        }
+        else{
+            
+            var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=update&";
+            url += "prev_title=" + oTitle + "&prev_location=" + oLocation + "&prev_details=" + oDetails + "&prev_day=" + oDay + "&prev_month=" + oMonth + "&prev_year=" + oYear + "&prev_start=" + oStart + "&prev_end=" + oEnd + "&prev_occurrence=" + oOccur;
+            url += "&app_title=" + title + "&app_location=" + loc + "&app_details=" + det + "&app_day=" + day + "&app_month=" + month + "&app_year=" + year + "&app_start=" + start + "&app_end=" + end + "&app_occurrence=" + occur + "&app_user=" + user + ""; 
+
+            $.ajax({
+              url: url,
+              async: false,
+                type : 'POST',
+              dataType: 'html',
+              success: function (html) {  
+                  var result = $.trim(html);
+                  alert(result);
+                  window.location.href = "home.html";
+              }
+            });
+        }
+    }
+    
+</script>

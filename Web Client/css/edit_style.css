@@ -1,0 +1,119 @@
+body{
+  padding: 0;
+  margin: 0;
+   font-family: 'Open Sans', sans-serif;
+}
+
+.container{
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+header{
+  background-color: black;
+  color: #ffffff;
+  padding-top: 0px;
+  min-height: 40px;
+    border-bottom: 4px solid #2984c3;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header a{
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+header li{
+  float: left;
+  display: inline;
+  padding: 0 20px 0 20px;
+}
+
+header #branding{
+  float: left;
+}
+
+header #branding h1{
+  margin: 0;
+    font-size: 20px; 
+    font-weight: 300; 
+    line-height: 40px;
+}
+
+header nav{
+  float: right;
+  line-height: 40px;
+}
+
+header .highlight, header .current a{
+  color: #2984c3;
+}
+
+header a:hover{
+  color: #cccccc;
+  font-weight: bold;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+#editAppointment{
+  min-height: 500px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#editAppointment h1{
+  margin-top: 20px;
+  font-size: 30px; 
+    font-weight: 300; 
+    line-height: 40px;
+  margin-bottom: 10px;
+    color: black;
+}
+
+#editAppointment button
+{
+    border: 1px solid #000;
+    outline: none;
+    width: 15%;
+    height: 40px;
+    background: #ffffff;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid #000;
+    padding: 10px;
+}
+
+#editAppointment button:hover
+{
+    background-color: grey;
+}
+
+#editAppointment input
+{
+    width: 50%;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: black;
+}
+
+#editAppointment select
+{
+    width: 30%;
+    margin-bottom: 20px;
+    border: 1px solid #000;
+    background: transparent;
+    height: 30px;
+    color: black;
+}

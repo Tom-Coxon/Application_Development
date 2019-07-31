@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calendar Application | Home</title>
+    <link rel="stylesheet" href="./css/login_style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1>Calendar Application | <span class="highlight">100404970</span></h1>
+          </div>
+        </div>
+    </header>
+
+    <section id="loginBox">
+      <div class="container">
+        <h1>Login / Register</h1>
+          <form id="form">
+              <p>Username</p>
+              <input type="text" id="username" placeholder="Enter Username">
+              <p>Password</p>
+              <input type="password" id="password" placeholder="Enter password"><br>
+              <a id="login" href="#" onclick="login(); return false;">Login</a>
+              <a id="register" href="#" onclick="register(); return false;">Register</a>
+          </form>
+      </div>
+    </section>
+  </body>
+</html>
+
+<script src="jQuery/jquery-3.3.1.js"></script>
+<script src="jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+
+  var cookies = document.cookie.split(";");
+
+  for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i];
+      var eqPos = cookie.indexOf("=");
+      var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+    function login(){
+        var user = form.elements["username"].value;
+        var pass = form.elements["password"].value;
+
+        var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=login&user_name=" + user + "&user_password=" + pass + "";
+
+        $.ajax({
+          url: url,
+          async: false,
+            type : 'POST',
+          dataType: 'html',
+          success: function (html) {  
+              var result = $.trim(html);
+              if(result==="login success"){
+                  document.cookie = user;
+                  var value = "home.html";
+                  window.location.href = value;
+              }
+              else{
+                  alert(result);
+                  return false;
+              }
+          }
+        });
+    }
+
+    function register(){
+        var user = form.elements["username"].value;
+        var pass = form.elements["password"].value;
+
+        var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=register&user_name=" + user + "&user_password=" + pass + "";
+
+        $.ajax({
+          url: url,
+          async: false,
+            type : 'POST',
+          dataType: 'html',
+          success: function (html) {  
+              var result = $.trim(html);
+              if(result==="register success"){
+                  document.cookie = user;
+                  var value = "home.html";
+                  window.location.href = value;
+              }
+              else{
+                  alert(result);
+                  return false;
+              }
+          }
+        });
+    }
+    
+</script>

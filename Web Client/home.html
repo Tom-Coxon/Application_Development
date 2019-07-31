@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calendar Application | Home</title>
+    <link rel="stylesheet" href="./css/home_style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1>Calendar Application | <span class="highlight">100404970</span></h1>
+        </div>
+        <nav>
+          <ul>
+            <li class="current"><a href="home.html">Home</a></li>
+            <li><a href="add.html">Add</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="index.html">LOGOUT</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="displayWeek">
+        <div id="alignButtons">
+            <input type="image" id="prev" src="images/prev_button.png" onclick="prevWeek()"/>
+            <h1 id="weekTitle"></h1>
+            <input type="image" id="next" src="images/next_button.png" onclick="nextWeek()"/>
+        </div>
+        <ul id="appointments"></ul>
+    </section>
+  </body>
+</html>
+
+<script src="jQuery/jquery-3.3.1.js"></script>
+<script src="jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+
+    var user = document.cookie;
+    
+    if(user == ""){
+        window.location.href="index.html"
+    }
+
+    var $appointments = $('#appointments');
+    var $weekTitle = $('#weekTitle');
+    
+    var counter = 0;
+    var appointmentList = new Array();
+
+    var weekDate = new Date();
+    
+    var dayOfWeek = dates(weekDate);
+    
+    calculateWeek(dayOfWeek);
+
+    function calculateWeek(dayOfWeek){
+        $appointments.empty();
+        $weekTitle.empty();
+        counter = 0;
+        appointmentList = [];
+        var title = "";
+        for(var day = 0; day < dayOfWeek.length; day++){
+            var dd = dayOfWeek[day].getDate();
+            var mm = dayOfWeek[day].getMonth()+1;
+            var yyyy = dayOfWeek[day].getFullYear();
+
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var dayName = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+            var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=week_app&";
+            url += "app_day=" + dd + "&app_month=" + months[dayOfWeek[day].getMonth()] + "&app_year=" + yyyy + "&app_user=" + user + "";
+            var output = "";
+
+            $.ajax({
+              url: url,
+              async: false,
+                type : 'POST',
+              dataType: 'html',
+              success: function (html) {  
+                  output = $.trim(html);
+              }
+            });
+
+            if(dd<10) {
+                dd = '0'+dd;
+            } 
+
+            if(mm<10) {
+                mm = '0'+mm;
+            }
+            
+            if(day == 0){
+                title += dayName[day] + ' ' + dd + ' ' + months[dayOfWeek[day].getMonth()] + ' ' + yyyy + ' --- ';
+            }
+            if(day == 6){
+                title += dayName[day] + ' ' + dd + ' ' + months[dayOfWeek[day].getMonth()] + ' ' + yyyy;
+            }
+
+            $appointments.append('<li id="day">' + dayName[day] + ' ' + dd + ' ' + months[dayOfWeek[day].getMonth()] + ' ' + yyyy + '</li>');
+            splitting(output);
+        }
+        $weekTitle.append(title);
+    }
+    
+    function dates(current) {
+        var week= new Array(); 
+        // Starting Monday not Sunday
+        current.setDate((current.getDate() - current.getDay() +1));
+        for (var i = 0; i < 7; i++) {
+            week.push(
+                new Date(current)
+            ); 
+            current.setDate(current.getDate() +1);
+        }
+        return week; 
+    }
+    
+    function splitting(string){
+        if(string === "no appointments"){
+            $appointments.append('<li id= "app">' + string + '</li>');
+        }
+        else{
+            var items = string.split("<searchAppointment>");
+
+            for(var i = 0; i < items.length - 1; i++){
+                appointmentList.push(items[i]);
+                var parts = items[i].split(" ==== ");
+                $appointments.append('<li id= "app">Title:' + parts[3]+ '<br>Location: ' + parts[4] + '<br>Start: ' + parts[5] + ' End: ' +parts[6] + '<br>Details: ' + parts[8] + '<br><button id="update" onclick="updateItem(' + counter + ')">Update</button><button id="delete" onclick="deleteItem(' + counter + ')">Delete</button></li>');
+                counter++;
+            }
+        }
+    }
+    
+    function deleteItem(string){
+        var value = appointmentList[string];
+        var parts = value.split(" ==== ");
+        
+        var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=delete&";
+        url += "app_title=" + parts[3] + "&app_location=" + parts[4] + "&app_details=" + parts[8] + "&app_day=" + parts[0] + "&app_month=" + parts[1] + "&app_year=" + parts[2] + "&app_start=" + parts[5] + "&app_end=" + parts[6] + "&app_occurrence=" + parts[7] + "&app_user=" + user + "";
+        var output = "";
+
+        $.ajax({
+          url: url,
+          async: false,
+            type : 'POST',
+          dataType: 'html',
+          success: function (html) {  
+              output = $.trim(html);
+              alert(output);
+              calculateWeek(dayOfWeek);
+          }
+        });
+        
+    }
+    
+    function updateItem(string){
+        var value = appointmentList[string];
+        
+        window.location.href = "edit.html?" + value;
+    }
+    
+    function prevWeek(){
+        var beforeOneWeek = new Date(weekDate.getTime() - 60 * 60 * 24 * 7 * 1000)
+          , day = beforeOneWeek.getDay()
+          , diffToMonday = beforeOneWeek.getDate() - day + (day === 0 ? -6 : 1)
+          , lastMonday = new Date(beforeOneWeek.setDate(diffToMonday))
+          , lastSunday = new Date(beforeOneWeek.setDate(diffToMonday - 8));
+        
+        var dayOfWeek = dates(lastSunday);
+        
+        weekDate = lastSunday;
+    
+        calculateWeek(dayOfWeek);
+    }
+    
+    function nextWeek(){
+        weekDate = new Date(weekDate.getFullYear(), weekDate.getMonth(), weekDate.getDate() + 4);
+        
+        var dayOfWeek = dates(weekDate);
+    
+        calculateWeek(dayOfWeek);
+    }
+</script>

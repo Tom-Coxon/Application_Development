@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Calendar Application | Home</title>
+    <link rel="stylesheet" href="./css/search_style.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1>Calendar Application | <span class="highlight">100404970</span></h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="add.html">Add</a></li>
+            <li class="current"><a href="search.html">Search</a></li>
+            <li><a href="index.html">LOGOUT</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="searchAppointment">
+      <div class="containerArea">
+          <h1>Search for an Appointment</h1>
+          <div>
+              <input type="checkbox" id="titleCheck" onclick="check('title')">
+          <input type="text" id="title" placeholder="Search By Title" disabled><br>
+              <input type="checkbox" id="locCheck" onclick="check('location')">
+            <input type="text" id="location" placeholder="Search By Location" disabled><br>
+              <input type="checkbox" id="dayCheck" onclick="check('dayDropDown')">
+            <select id="dayDropDown" disabled>
+                <option value="" hidden>Search By Day</option>
+              </select><br>
+              <input type="checkbox" id="monthCheck" onclick="check('monthDropDown')">
+            <select id="monthDropDown" disabled>
+                <option value="" hidden>Search By Month</option>
+              </select><br>
+              <input type="checkbox" id="yearCheck" onclick="check('yearDropDown')">
+            <select id="yearDropDown" disabled>
+                <option value="" hidden>Search By Year</option>
+              </select><br>
+              <input type="checkbox" id="startCheck" onclick="check('startDropDown')">
+            <select id="startDropDown" disabled>
+                <option value="" hidden>Search By Start Time</option>
+              </select><br>
+              <input type="checkbox" id="endCheck" onclick="check('endDropDown')">
+            <select id="endDropDown" disabled>
+              <option value="" hidden>Search By End Time</option>
+              </select><br>
+            <button id="search" onclick="searchItem()">Search</button>
+              <p>*If there are no checkboxes selected it will return all appointments*</p>
+              </div>
+          
+          <div id="resultData"></div>
+      </div>
+      </section>
+  </body>
+</html>
+
+<script src="jQuery/jquery-3.3.1.js"></script>
+<script src="jQuery/jquery-3.3.1.min.js"></script>
+
+<script>
+    
+    var user = document.cookie;
+    
+    if(user == ""){
+        window.location.href="index.html"
+    }
+    
+    var counter = 0;
+    var appointmentList = new Array();
+    
+    var $rTitle = $('#resultData');
+    
+    setUp();
+    
+    function setUp(){
+        var $dayDropDown = $('#dayDropDown');
+        var $monthDropDown = $('#monthDropDown');
+        var $yearDropDown = $('#yearDropDown');
+        var $startDropDown = $('#startDropDown');
+        var $endDropDown = $('#endDropDown');
+
+        for(var i = 1; i <= 31; i++){
+            $dayDropDown.append('<option>'+ i + '</option>');
+        }
+
+        var monthItem = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        for(var i = 0; i < 12; i++){
+            $monthDropDown.append('<option>'+ monthItem[i] + '</option>');
+        }
+
+        var yearItem = new Date();
+        for(var i = 0; i < 10; i++){
+            $yearDropDown.append('<option>'+ (yearItem.getFullYear()+i) + '</option>');
+        }
+
+        var time = "";
+        var hours = "";
+        var mins = "";
+
+        for(var i = 0; i <= 23; i++){
+            if(i < 10){
+                hours = "0" + i + ":";
+            }
+            else{
+                hours = i + ":";
+            }
+            for(var j = 0; j <= 45; j = j + 15){
+                if(j == 0){
+                    mins = "0" + j;
+                }
+                else{
+                    mins = j;
+                }
+                time = hours + mins;
+                $startDropDown.append('<option>'+ time + '</option>');
+                $endDropDown.append('<option>'+ time + '</option>');
+            }
+        }
+    }
+    
+    
+    function searchItem(){
+        load();
+    }
+    
+    
+    function load(){
+        $rTitle.empty();
+        $rTitle.append('<h1>Search Result</h1><ul id="results"></ul>');
+        var $results = $('#results');
+        counter = 0;
+        appointmentList = [];
+        
+        var title = $('#title').val();
+        var loc = $('#location').val();
+        var dayDrp = document.getElementById('dayDropDown');
+        var day = dayDrp.options[dayDrp.selectedIndex].value;
+        var monthDrp = document.getElementById('monthDropDown');
+        var month = monthDrp.options[monthDrp.selectedIndex].value;
+        var yearDrp = document.getElementById('yearDropDown');
+        var year = yearDrp.options[yearDrp.selectedIndex].value;
+        var startDrp = document.getElementById('startDropDown');
+        var start = startDrp.options[startDrp.selectedIndex].value;
+        var endDrp = document.getElementById('endDropDown');
+        var end = endDrp.options[endDrp.selectedIndex].value;
+            
+        var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=search&";
+        url += "app_title=" + title + "&app_location=" + loc + "&app_day=" + day + "&app_month=" + month + "&app_year=" + year + "&app_start=" + start + "&app_end=" + end + "&app_user=" + user + ""; 
+
+        var result = "";
+        $.ajax({
+          url: url,
+          async: false,
+            type : 'POST',
+          dataType: 'html',
+          success: function (html) {  
+              result = $.trim(html);
+          }
+        });
+
+        if(result === "no appointments"){
+            $results.append('<li id= "app">' + result + '</li>');
+        }
+        else{
+            var items = result.split("<searchAppointment>");
+
+            for(var i = 0; i < items.length - 1; i++){
+                appointmentList.push(items[i]);
+                var parts = items[i].split(" ==== ");
+                $results.append('<li id= "app">Title:' + parts[3]+ '<br>Date: ' + parts[0] + '/' + parts[1] + '/' + parts[2] + '<br>Location: ' + parts[4] + '<br>Start: ' + parts[5] + ' End: ' +parts[6] + '<br>Details: ' + parts[8] + '<br><button id="update" onclick="updateItem(' + counter + ')">Update</button><button id="delete" onclick="deleteItem(' + counter + ')">Delete</button></li>');
+                counter++;
+            }
+        }
+        
+        
+        var output = "";
+        for(var i = 0; i <= appointmentList.length - 1; i++){
+            output += appointmentList[i] + "\n";
+        }
+    }
+    
+    function deleteItem(string){
+        var value = appointmentList[string];
+        var parts = value.split(" ==== ");
+        
+        var url = "http://computing.derby.ac.uk/~st100404970/App_Dev/index.php?CALL=delete&";
+        url += "app_title=" + parts[3] + "&app_location=" + parts[4] + "&app_details=" + parts[8] + "&app_day=" + parts[0] + "&app_month=" + parts[1] + "&app_year=" + parts[2] + "&app_start=" + parts[5] + "&app_end=" + parts[6] + "&app_occurrence=" + parts[7] + "&app_user=" + user + "";
+        var output = "";
+
+        $.ajax({
+          url: url,
+          async: false,
+            type : 'POST',
+          dataType: 'html',
+          success: function (html) {  
+              output = $.trim(html);
+              alert(output);
+              load();
+          }
+        });
+        
+    }
+    
+    function updateItem(string){
+        var value = appointmentList[string];
+        
+        window.location.href = "edit.html?" + value;
+    }
+    
+    function check(data){
+        var ident = "";
+        if(data == "title"){
+            ident = data;
+        }
+        else if(data == "location"){
+            ident = data;
+        }
+        else if(data == "dayDropDown"){
+            ident = data;
+        }
+        else if(data == "monthDropDown"){
+            ident = data;
+        }
+        else if(data == "yearDropDown"){
+            ident = data;
+        }
+        else if(data == "startDropDown"){
+            ident = data;
+        }
+        else if(data == "endDropDown"){
+            ident = data;
+        }
+        else{
+            ident = data;
+        }
+        
+        if ($('#' + ident + '').attr('disabled')) {
+            $('#' + ident + '').removeAttr('disabled');
+        }
+        else {
+            $('#' + ident + '').val('');
+            $('#' + ident + '').attr({
+                'disabled': 'disabled'
+            });
+        }
+    }
+    
+</script>

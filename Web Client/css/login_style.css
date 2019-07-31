@@ -1,0 +1,89 @@
+body{
+  padding: 0;
+  margin: 0;
+   font-family: 'Open Sans', sans-serif;
+}
+
+.container{
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+header{
+  background-color: black;
+  color: #ffffff;
+  padding-top: 0px;
+  min-height: 40px;
+    border-bottom: 4px solid #2984c3;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header #branding{
+  float: left;
+}
+
+header #branding h1{
+  margin: 0;
+    font-size: 20px; 
+    font-weight: 300; 
+    line-height: 40px;
+}
+
+header .highlight{
+  color: #2984c3;
+}
+
+#loginBox{
+  min-height: 400px;
+  text-align: center;
+  color: #ffffff;
+}
+
+#loginBox h1{
+  margin-top: 50px;
+  font-size: 30px; 
+    font-weight: 300; 
+    line-height: 40px;
+  margin-bottom: 10px;
+    color: black;
+}
+
+#loginBox p
+{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+#loginBox form a:hover
+{
+    background-color: grey;
+}
+
+#loginBox input
+{
+    width: 25%;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: black;
+}
+
+#loginBox a
+{
+    display: inline-block;
+    width: 130px;
+    height: 25px;
+    margin-top: 30px;
+    text-decoration: none;
+    border: 1px solid #000;
+    background: transparent;
+    color: black;
+    border-radius: 5px;
+    border: 2px solid #000;
+    padding: 1px;
+}
