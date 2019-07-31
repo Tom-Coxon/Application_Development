@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AppointmentDisplay">
+
+    <RelativeLayout
+        android:id="@+id/displayBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:onClick="returnMain"
+            app:srcCompat="@drawable/backbutton"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleName"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Title: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationName"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Location: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateName"
+            android:layout_marginTop="95dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Date: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timesName"
+            android:layout_marginTop="140dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Times: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/occurrenceName"
+            android:layout_marginTop="180dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Occurrence: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsName"
+            android:layout_marginTop="230dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"
+            android:text="Details: "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/data"
+            android:layout_marginTop="280dp"
+            android:layout_marginLeft="50dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:inputType="textPersonName"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editEventButton"
+            android:layout_marginTop="450dp"
+            android:layout_marginLeft="80dp"
+            android:background="@color/darkGrey"
+            android:clickable="true"
+            android:onClick="editAppointment"
+            android:text="Update" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteEventButton"
+            android:layout_marginTop="450dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80dp"
+            android:background="@color/darkGrey"
+            android:clickable="true"
+            android:onClick="deleteAppointment"
+            android:text="Delete" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

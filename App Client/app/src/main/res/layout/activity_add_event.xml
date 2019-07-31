@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AddActivity">
+
+    <RelativeLayout
+        android:id="@+id/addBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:onClick="returnMain"
+            app:srcCompat="@drawable/backbutton"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/addBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TitleName"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:ems="15"
+            android:inputType="textPersonName"
+            android:textColor="@color/darkGrey"
+            android:textColorHint="@color/darkGrey"
+            android:hint="Enter a Title"
+            android:background="@drawable/edittextstyle" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/LocationName"
+            android:layout_marginTop="35dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:ems="15"
+            android:inputType="textPersonName"
+            android:textColor="@color/darkGrey"
+            android:textColorHint="@color/darkGrey"
+            android:hint="Enter a Location"
+            android:background="@drawable/edittextstyle" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:id="@+id/Information"
+            android:layout_marginTop="65dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:ems="15"
+            android:inputType="textPersonName"
+            android:textColor="@color/darkGrey"
+            android:textColorHint="@color/darkGrey"
+            android:hint="Enter Details"
+            android:background="@drawable/edittextstyle" />
+
+        <TextView
+            android:id="@+id/textDay"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="220dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="Day: "/>
+
+        <Spinner
+            android:id="@+id/dropdownDay"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="220dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textMonth"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="255dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="Month: "/>
+
+        <Spinner
+            android:id="@+id/dropdownMonth"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="255dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textYear"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="290dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="Year: "/>
+
+        <Spinner
+            android:id="@+id/dropdownYear"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="290dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textStartTime"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="325dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="Start Time: "/>
+
+        <Spinner
+            android:id="@+id/dropdownStart"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="325dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textEndTime"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="360dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="End Time: "/>
+
+        <Spinner
+            android:id="@+id/dropdownEnd"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="360dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <TextView
+            android:id="@+id/textOccurrence"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="395dp"
+            android:layout_alignLeft="@+id/Information"
+            android:gravity="right"
+            android:textColor="@color/darkGrey"
+            android:textSize="18dp"
+            android:text="Occurrence: "/>
+
+        <Spinner
+            android:id="@+id/dropdownOccurrence"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="395dp"
+            android:layout_alignRight="@+id/Information"
+            android:textColorHint="@color/darkGrey"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addEventButton"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/grey"
+            android:clickable="true"
+            android:onClick="addAppointment"
+            android:text="Add Event" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
